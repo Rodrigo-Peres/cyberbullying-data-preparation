@@ -1,0 +1,8 @@
+[WARNING] 2024-04-15 22:32:38 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-15 22:57:33 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-17 12:03:15 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-17 12:28:47 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-17 12:54:46 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-17 13:14:43 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-17 13:18:28 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
+[WARNING] 2024-04-17 13:58:37 google.auth._default: Authentication failed using Compute Engine authentication due to unavailable metadata server.
