@@ -1,0 +1,6 @@
+# We would like to ignore everything, then allow only required files and directories to pass
+*
+
+!docker
+!pyproject.toml
+!poetry.lock
