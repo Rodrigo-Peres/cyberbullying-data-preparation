@@ -5,7 +5,6 @@ services:
     user: "${USER_ID:-1000}"
     hostname: "${HOST_NAME:-rodrigoperes}"
     image: cyberbullying-data-prep
-    platform: linux/amd64
     container_name: cyberbullying-data-prep-container
     build:
       context: .
@@ -17,7 +16,13 @@ services:
       - ./:/app/
       - ~/.config/gcloud/:/home/${USER_NAME:-rodrigoperes}/.config/gcloud
     ports:
-      - 8080:8080
-
+      - 8888:8888
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     ipc: host
     init: true

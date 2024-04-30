@@ -5,12 +5,12 @@ ARG USER_NAME
 ENV HOME=/home/${USER_NAME} \
     VIRTUAL_ENV=/home/${USER_NAME}/venv
 ENV \
-  PYTHONUNBUFFERED=1 \
-  DEBIAN_FRONTEND=noninteractive \
-  TZ=America/Sao_Paulo \
-  PATH="/usr/local/gcloud/google-cloud-sdk/bin:${HOME}/.local/bin:${VIRTUAL_ENV}/bin:${PATH}" \
-  PYTHONPATH="/app:${PYTHONPATH}" \
-  BUILD_POETRY_LOCK="${HOME}/poetry.lock.build"
+    PYTHONUNBUFFERED=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    TZ=America/Sao_Paulo \
+    PATH="/usr/local/gcloud/google-cloud-sdk/bin:${HOME}/.local/bin:${VIRTUAL_ENV}/bin:${PATH}" \
+    PYTHONPATH="/app:${PYTHONPATH}" \
+    BUILD_POETRY_LOCK="${HOME}/poetry.lock.build"
 
 RUN apt-get -qq update \
     && apt-get -qq -y install vim gcc curl git build-essential libb64-dev software-properties-common \
@@ -28,7 +28,7 @@ RUN addgroup --system --gid ${USER_ID} ${USER_NAME} \
 RUN chown -R ${USER_NAME}:${USER_NAME} ${HOME}
 RUN mkdir -p /app && chown -R ${USER_NAME}:${USER_NAME} /app /tmp
 
-RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.7.1
+RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.4.2
 
 USER ${USER_NAME}
 
@@ -44,6 +44,7 @@ RUN poetry config virtualenvs.create false \
 USER root
 COPY ./docker/scripts/* /
 RUN chown -R ${USER_NAME} /*.sh && chmod +x /*.sh
+RUN chown -R ${USER_NAME} ${HOME}/.local
 USER ${USER_NAME}
 
 RUN git config --global user.email "rodrigo-sw1@hotmail.com" \
