@@ -85,7 +85,6 @@ class JigsawToxicCommentsDatasetReader(DatasetReader):
         self.columns_for_label = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
 
     def _read_data(self) -> tuple[dd.core.DataFrame, dd.core.DataFrame, dd.core.DataFrame]:
-
         test_csv_path = os.path.join(self.dataset_dir, "test.csv")
         test_df = dd.read_csv(test_csv_path)
 
@@ -107,6 +106,30 @@ class JigsawToxicCommentsDatasetReader(DatasetReader):
     def get_text_and_label_columns(self, df: dd.core.DataFrame) -> dd.core.DataFrame:
         df["label"] = (df[self.columns_for_label].sum(axis=1) > 0).astype(int)
         df = df.rename(columns={"comment_text": "text"})
+        return df
+
+
+class TwitterDatasetReader(DatasetReader):
+    def __init__(self, dataset_dir: str, dataset_name: str, test_split_ratio: float, dev_split_ratio: float) -> None:
+        super().__init__(dataset_dir, dataset_name)
+        self.test_split_ratio = test_split_ratio
+        self.dev_split_ratio = dev_split_ratio
+        self.label_col = "cyberbullying_type"
+
+    def _read_data(self) -> tuple[dd.core.DataFrame, dd.core.DataFrame, dd.core.DataFrame]:
+        df_path = os.path.join(self.dataset_dir, "cyberbullying_tweets.csv")
+        df = dd.read_csv(df_path)
+
+        df = self.get_text_and_label_col(df)
+
+        train_df, test_df = self.split_dataset(df, self.test_split_ratio, stratify_column="label")
+        train_df, dev_df = self.split_dataset(train_df, self.dev_split_ratio, stratify_column="label")
+
+        return train_df, dev_df, test_df
+    
+    def get_text_and_label_col(self, df: dd.core.DataFrame) -> dd.core.DataFrame:
+        df['label'] = df['cyberbullying_type'].apply(lambda x: 1 if x != "not_cyberbullying" else 0)
+        df = df.rename(columns={"tweet_text": "text"})
         return df
 
 

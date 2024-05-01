@@ -1,2 +1,0 @@
-[WARNING] 2024-04-30 12:25:18 google.auth._default: No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
-[WARNING] 2024-04-30 12:55:20 google.auth._default: No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
